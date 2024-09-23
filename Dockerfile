@@ -17,4 +17,4 @@ RUN dotnet publish --no-restore -o /app
 FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy-chiseled
 WORKDIR /app
 COPY --from=build /app .
-ENTRYPOINT ["./certstore"]
+CMD ["./certstore"]

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
@@ -6,6 +7,11 @@ public class Example
 {
     static void Main()
     {
+        Console.WriteLine($"{nameof(RuntimeInformation.OSArchitecture)}: {RuntimeInformation.OSArchitecture}");
+        Console.WriteLine($"{nameof(RuntimeInformation.OSDescription)}: {RuntimeInformation.OSDescription}");
+        Console.WriteLine($"{nameof(RuntimeInformation.FrameworkDescription)}: {RuntimeInformation.FrameworkDescription}");
+        Console.WriteLine();
+
         Console.WriteLine("\r\nExists Certs Name and Location");
         Console.WriteLine("------ ----- -------------------------");
 
@@ -43,7 +49,7 @@ public class Example
                 Console.WriteLine($"Looking into {store.Name} at {store.Location}");
                 store.Open(OpenFlags.OpenExistingOnly);
                 Console.WriteLine($"Found {store.Certificates.Count} certificates");
-                foreach (var cert in store.Certificates.Take(10)) {
+                foreach (var cert in store.Certificates) {
                     var nameinfo = cert.GetNameInfo(X509NameType.DnsName, false);
                     Console.WriteLine($"{nameinfo} {cert.SubjectName.Name} - {cert.Thumbprint}");
                 }
